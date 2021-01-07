@@ -1,0 +1,92 @@
+<div class="form-group">
+    <div>
+        <input type="date" #ngay (change)="chonngay($event);">
+    </div>
+</div>
+<sb-card>
+    <div class="card-body">
+        <div *ngIf="listsanByidquan$ | async; then display; else loading"></div>
+        <ng-template #display>
+            <table style="width: 100%;" border="1">
+                <tr>
+                    <td style="text-align: center;">5h</td>
+                    <td style="text-align: center;">6h</td>
+                    <td style="text-align: center;">7h</td>
+                    <td style="text-align: center;">8h</td>
+                    <td style="text-align: center;">9h</td>
+                    <td style="text-align: center;">10h</td>
+                    <td style="text-align: center;">11h</td>
+                    <td style="text-align: center;">12h</td>
+                    <td style="text-align: center;">13h</td>
+                    <td style="text-align: center;">14h</td>
+                    <td style="text-align: center;">15h</td>
+                    <td style="text-align: center;">16h</td>
+                    <td style="text-align: center;">17h</td>
+                    <td style="text-align: center;">18h</td>
+                    <td style="text-align: center;">19h</td>
+                    <td style="text-align: center;">20h</td>
+                </tr>
+                <tr *ngFor="let san of listsanByidquan$ | async ;index as i;">
+                    <td style="widows: 4px;">
+                        
+                        <div *ngIf="mang[i][0]" style="background-color: #41c04d;text-align: center;">đặt</div>.
+            
+                    </td>
+                    <td>
+                        <div *ngIf="mang[i][1]" style="background-color: #41c04d;text-align: center;">đặt</div>
+                    </td>
+                    <td>
+                        <div *ngIf="mang[i][2]" style="background-color: #41c04d;text-align: center;">đặt</div>
+                    </td>
+                    <td>
+                        <div *ngIf="mang[i][3]" style="background-color: #41c04d;text-align: center;">đặt</div>
+                    </td>
+                    <td>
+                        <div *ngIf="mang[i][4]" style="background-color: #41c04d;text-align: center;">đặt</div>
+                    </td>
+                    <td>
+                        <div *ngIf="mang[i][5]" style="background-color: #41c04d;text-align: center;">đặt</div>
+                    </td>
+                    <td>
+                        <div *ngIf="mang[i][6]" style="background-color: #41c04d;text-align: center;">đặt</div>
+                    </td>
+                    <td>
+                        <div *ngIf="mang[i][7]" style="background-color: #41c04d;text-align: center;">đặt</div>
+                    </td>
+                    <td>
+                        <div *ngIf="mang[i][8]" style="background-color: #41c04d;text-align: center;">đặt</div>
+                    </td>
+                    <td>
+                        <div *ngIf="mang[i][9]" style="background-color: #41c04d;text-align: center;">đặt</div>
+                    </td>
+                    <td>
+                        <div *ngIf="mang[i][10]" style="background-color: #41c04d;text-align: center;">đặt</div>
+                    </td>
+                    <td>
+                        <div *ngIf="mang[i][11]" style="background-color: #41c04d; text-align: center;">đặt</div>
+                    </td>
+                    <td>
+                        <div *ngIf="mang[i][12]" style="background-color: #41c04d;text-align: center;">đặt</div>
+                    </td>
+                    <td>
+                        <div *ngIf="mang[i][13]" style="background-color: #41c04d;text-align: center;">đặt</div>
+                    </td>
+                    <td>
+                        <div *ngIf="mang[i][14]" style="background-color: #41c04d;text-align: center;">đặt</div>
+                    </td>
+                    <td>
+                        <div *ngIf="mang[i][15]" style="background-color: #41c04d;text-align: center;">đặt</div>
+                    </td>
+                    
+                </tr>
+            </table>
+
+        </ng-template>
+        <ng-template #loading>
+            <div class="spinner">
+                <div class="ball-1"></div>
+                <div class="ball-2"></div>
+            </div>
+        </ng-template>
+    </div>
+</sb-card>
