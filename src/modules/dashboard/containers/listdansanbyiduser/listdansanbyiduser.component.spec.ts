@@ -2,11 +2,11 @@ import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { DashboardDatsanComponent } from './dashboard-datsan.component';
+import { ListdansanbyiduserComponent } from './listdansanbyiduser.component';
 
 @Component({
     template: `
-        <sb-dashboard-datsan [someInput]="someInput" (someFunction)="someFunction($event)"></sb-dashboard-datsan>
+        <sb-listdansanbyiduser [someInput]="someInput" (someFunction)="someFunction($event)"></sb-listdansanbyiduser>
     `,
 })
 class TestHostComponent {
@@ -14,19 +14,19 @@ class TestHostComponent {
     // someFunction(event: Event) {}
 }
 
-describe('DashboardDatsanComponent', () => {
+describe('ListdansanbyiduserComponent', () => {
     let fixture: ComponentFixture<TestHostComponent>;
     let hostComponent: TestHostComponent;
     let hostComponentDE: DebugElement;
     let hostComponentNE: Element;
 
-    let component: DashboardDatsanComponent;
+    let component: ListdansanbyiduserComponent;
     let componentDE: DebugElement;
     let componentNE: Element;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TestHostComponent, DashboardDatsanComponent],
+            declarations: [TestHostComponent, ListdansanbyiduserComponent],
             imports: [NoopAnimationsModule],
             providers: [],
             schemas: [NO_ERRORS_SCHEMA],
@@ -45,6 +45,6 @@ describe('DashboardDatsanComponent', () => {
     });
 
     it('should display the component', () => {
-        expect(hostComponentNE.querySelector('sb-dashboard-datsan')).toEqual(jasmine.anything());
+        expect(hostComponentNE.querySelector('sb-listdansanbyiduser')).toEqual(jasmine.anything());
     });
 });

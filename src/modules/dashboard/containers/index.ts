@@ -1,9 +1,9 @@
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardListsanComponent } from './dashboard-listsan/dashboard-listsan.component';
-import { DashboardDatsanComponent } from './dashboard-datsan/dashboard-datsan.component';
+import { ListdansanbyiduserComponent } from './listdansanbyiduser/listdansanbyiduser.component';
 
-export const containers = [DashboardComponent, DashboardListsanComponent, DashboardDatsanComponent];
+export const containers = [DashboardComponent, DashboardListsanComponent,  ListdansanbyiduserComponent];
 
 export * from './dashboard/dashboard.component';
 export * from './dashboard-listsan/dashboard-listsan.component';
-export * from './dashboard-datsan/dashboard-datsan.component';
+export * from './listdansanbyiduser/listdansanbyiduser.component';

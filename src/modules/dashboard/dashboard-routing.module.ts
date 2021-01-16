@@ -7,6 +7,7 @@ import { DashboardModule } from './dashboard.module';
 /* Containers */
 import * as dashboardContainers from './containers';
 
+import { environment } from './../../environments/environment';
 
 /* Routes */
 export const ROUTES: Routes = [
@@ -18,7 +19,7 @@ export const ROUTES: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'a',
+        redirectTo: 'quan/' + environment.iduser,
         //redirectTo: 'quan/:iduser',
     },
 
@@ -33,11 +34,12 @@ export const ROUTES: Routes = [
         component: dashboardContainers.DashboardListsanComponent,
     },
     {
-        path: 'a',
+        path: 'user/:iduser',
         canActivate: [],
-        component: dashboardContainers.DashboardDatsanComponent,
-    }
+        component: dashboardContainers.ListdansanbyiduserComponent,
+    },
 
+  
 ];
 
 @NgModule({

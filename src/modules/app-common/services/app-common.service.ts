@@ -16,7 +16,9 @@ export class AppCommonService {
     };
     public httpOptions1 = {
         headers: new HttpHeaders({
-            'Api-Key': `${environment.apiKey}`,
+            'Access-Control-Allow-Credentials': 'true',
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json'
         }),
     };
 
