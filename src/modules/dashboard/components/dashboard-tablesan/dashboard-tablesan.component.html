@@ -29,9 +29,10 @@
         </div>
         </ng-template>
         <ng-template #loading2>
-            <div class="spinner">
-                <div class="ball-1"></div>
-                <div class="ball-2"></div>
+            <div class="text-center">
+                <div class="spinner-grow" style="width: 15rem; height: 15rem;text-align: center;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
             </div>
         </ng-template>
     </div>
@@ -44,12 +45,10 @@
         <input type="date" [(ngModel)]="today" (change)="chonngay($event);">
     </div>
 </div>
-    <button  (click)="huhu()"
-        class="btdt">đặt</button>
 <sb-card>
 
-    <div *ngIf="trackingObservable" class="card-body">
-        <div *ngIf="listsanByidquan$ | async; then display; else loading"></div>
+    <div  class="card-body">
+        <div *ngIf="trackingObservable then display; else loading"></div>
         <ng-template #display>
             <table style="width: 100%;" border="1">
                 <tr>
@@ -71,57 +70,57 @@
                     <td style="text-align: center;width: 6%;">19h</td>
                     <td style="text-align: center;width: 6%;">20h</td>
                 </tr>
-                <tr *ngFor="let san of listsanByidquan$ | async ;index as i; trackBy: trackByListSan">
+                <tr *ngFor="let san of listsanByidquan ;index as i; trackBy: trackByListSan">
                     <td >
                         {{san.name}}
                     </td>
                     <td style="background-color: #41c04d;">
-                        <button *ngIf="!mang[i][0]" (click)="datsan(0,san.id,san.priceperhour,san.name,san.numberpeople)"  class="btdt">đặt</button>
+                        <button *ngIf="!mangDatsan[i][0]" (click)="datsan(0,san.id,san.priceperhour,san.name,san.numberpeople)"  class="btdt">đặt</button>
                     </td>
                     <td style ="background-color: #41c04d;" >
-                        <button *ngIf="!mang[i][1]" (click)="datsan(1,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
+                        <button *ngIf="!mangDatsan[i][1]" (click)="datsan(1,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
                     </td>
                     <td style="background-color: #41c04d;">
-                        <button *ngIf="!mang[i][2]" (click)="datsan(2,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
+                        <button *ngIf="!mangDatsan[i][2]" (click)="datsan(2,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
                     </td>
                     <td style="background-color: #41c04d;">
-                        <button *ngIf="!mang[i][3]" (click)="datsan(3,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
+                        <button *ngIf="!mangDatsan[i][3]" (click)="datsan(3,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
                     </td>
                     <td style="background-color: #41c04d;">
-                        <button *ngIf="!mang[i][4]" (click)="datsan(4,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
+                        <button *ngIf="!mangDatsan[i][4]" (click)="datsan(4,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
                     </td>
                     <td style="background-color: #41c04d;">
-                        <button *ngIf="!mang[i][5]" (click)="datsan(5,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
+                        <button *ngIf="!mangDatsan[i][5]" (click)="datsan(5,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
                     </td>
                     <td style="background-color: #41c04d;">
-                        <button *ngIf="!mang[i][6]" (click)="datsan(6,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
+                        <button *ngIf="!mangDatsan[i][6]" (click)="datsan(6,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
                     </td>
                     <td style="background-color: #41c04d;">
-                        <button *ngIf="!mang[i][7]" (click)="datsan(7,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
+                        <button *ngIf="!mangDatsan[i][7]" (click)="datsan(7,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
                     </td>
                     <td style="background-color: #41c04d;">
-                        <button *ngIf="!mang[i][8]" (click)="datsan(8,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
+                        <button *ngIf="!mangDatsan[i][8]" (click)="datsan(8,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
                     </td>
                     <td style="background-color: #41c04d;">
-                        <button *ngIf="!mang[i][9]" (click)="datsan(9,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
+                        <button *ngIf="!mangDatsan[i][9]" (click)="datsan(9,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
                     </td>
                     <td style="background-color: #41c04d;">
-                        <button *ngIf="!mang[i][10]" (click)="datsan(10,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
+                        <button *ngIf="!mangDatsan[i][10]" (click)="datsan(10,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
                     </td>
                     <td style="background-color: #41c04d;">
-                        <button *ngIf="!mang[i][11]" (click)="datsan(11,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
+                        <button *ngIf="!mangDatsan[i][11]" (click)="datsan(11,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
                     </td>
                     <td style="background-color: #41c04d;">
-                        <button *ngIf="!mang[i][12]" (click)="datsan(12,san.id,san.priceperhour,san.name,san.numberpeople)"class="btdt">đặt</button>
+                        <button *ngIf="!mangDatsan[i][12]" (click)="datsan(12,san.id,san.priceperhour,san.name,san.numberpeople)"class="btdt">đặt</button>
                     </td>
                     <td style="background-color: #41c04d;">
-                        <button *ngIf="!mang[i][13]" (click)="datsan(13,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
+                        <button *ngIf="!mangDatsan[i][13]" (click)="datsan(13,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
                     </td>
                     <td style="background-color: #41c04d;">
-                        <button *ngIf="!mang[i][14]" (click)="datsan(14,san.id,san.priceperhour,san.name,san.numberpeople)"class="btdt">đặt</button>
+                        <button *ngIf="!mangDatsan[i][14]" (click)="datsan(14,san.id,san.priceperhour,san.name,san.numberpeople)"class="btdt">đặt</button>
                     </td>
                     <td style="background-color: #41c04d;">
-                        <button *ngIf="!mang[i][15]" (click)="datsan(15,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
+                        <button *ngIf="!mangDatsan[i][15]" (click)="datsan(15,san.id,san.priceperhour,san.name,san.numberpeople)" class="btdt">đặt</button>
                     </td>
                     
                 </tr>
@@ -129,9 +128,10 @@
 
         </ng-template>
         <ng-template #loading>
-            <div class="spinner">
-                <div class="ball-1"></div>
-                <div class="ball-2"></div>
+            <div class="text-center">
+                <div class="spinner-grow" style="width: 15rem; height: 15rem;text-align: center;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
             </div>
         </ng-template>
     </div>
@@ -140,10 +140,10 @@
 <h1 style="color:red">Danh sách các sân bóng</h1>
 <sb-card>
     <div class="card-body">
-        <div *ngIf="listsanByidquan$ | async; then display1; else loading1"></div>
+        <div *ngIf="listsanByidquan; then display1; else loading1"></div>
         <ng-template #display1>
             <div class="row">
-                <div class="col-md-4 pd-checkbox" *ngFor="let san of listsanByidquan$ | async">
+                <div class="col-md-4 pd-checkbox" *ngFor="let san of listsanByidquan">
                     <label class="customer-checkbox">
                         <div class="row">
                             <div>
@@ -177,9 +177,10 @@
             </div>
         </ng-template>
         <ng-template #loading1>
-            <div class="spinner">
-                <div class="ball-1"></div>
-                <div class="ball-2"></div>
+            <div class="text-center">
+                <div class="spinner-grow" style="width: 15rem; height: 15rem;text-align: center;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
             </div>
         </ng-template>
     </div>

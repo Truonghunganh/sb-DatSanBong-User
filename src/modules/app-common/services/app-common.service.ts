@@ -9,16 +9,31 @@ export class AppCommonService {
     constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService) {}
     public httpOptions = {
         headers: new HttpHeaders({
-            Authorization: `Bearer ${JSON.parse(this.storage.get('admin')).token}`,
+            'tokenUser': JSON.parse(this.storage.get('tokenUser')),
+            //Authorization: `Bearer ${JSON.parse(this.storage.get('admin')).token}`,
             'Access-Control-Allow-Credentials': 'true',
-            'Api-Key': `${environment.apiKey}`,
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+
         }),
     };
+    public httpOption(){
+        if(this.storage.get('admin').token){
+            console.log(1);
+            
+        }
+        else{
+            console.log(2);
+            
+        }
+    }
     public httpOptions1 = {
         headers: new HttpHeaders({
             'Access-Control-Allow-Credentials': 'true',
             'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'token': `${environment.token}`,
+           // 'Authorization': 'Bearer ' + environment.token
         }),
     };
 

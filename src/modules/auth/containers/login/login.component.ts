@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User} from './../../models/auth.model';
+import Swal from 'sweetalert2';
 
 import { Admin } from './../../models/auth.model';
 import { AuthService } from './../../services/auth.service';
@@ -21,28 +23,37 @@ export class LoginComponent implements OnInit {
         private router: Router
     ) {}
     ngOnInit() {
+        
         this.loginFormGroup = this.formBuilder.group({
             phone: ['', Validators.required],
             password: ['', Validators.required],
         });
-    }
-    onSubmit() {
-        console.log(this.loginFormGroup.controls.phone.value);
-        const admin = new Admin(
-            this.loginFormGroup.controls.phone.value,
-            this.loginFormGroup.controls.password.value
-        );
-        this.authService.login$(admin).subscribe(data => {
-            if (data.success) {
-                if (data.data.user.role_id === 1 && data.data.user.status === 1) {
-                    this.router.navigate(['/categories/list']);
+        this.authService.checkTokenUser().subscribe(
+            result => {
+                console.log(result);
+                
+                if (result.status) {
+                    this.router.navigate(['/dashboard/quan']);
                 }
-            } else {
-                console.log(1);
-
-                this.error = data.message;
-                this.a = false;
+                
             }
-        });
+        )
+    }
+    submit(phone : string, password : string){
+        console.log(phone,password);
+        const user=new User(phone,password);
+        this.authService.login(user).subscribe(result => {
+            if (result.status) {
+                this.router.navigate(['/dashboard/quan']);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    text: '"phone or password is false of user!',
+                })
+            }
+           
+            
+        })
+        
     }
 }

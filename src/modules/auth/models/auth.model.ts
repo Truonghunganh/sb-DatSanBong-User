@@ -1,9 +1,9 @@
-export interface User {
-    id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-}
+// export interface User {
+//     id: string;
+//     firstName: string;
+//     lastName: string;
+//     email: string;
+//}
 export class Admin {
     phone: string;
     password: string;
@@ -31,3 +31,11 @@ export class Admin1 {
         this.roleId = _roleId;
     }
 }
+export class User {
+    phone: string;
+    password: string;
+    constructor(phone: string, password: string) {
+        this.phone = phone;
+        this.password = password;
+    }
+ }

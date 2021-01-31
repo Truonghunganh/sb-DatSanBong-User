@@ -3,8 +3,8 @@
         <div *ngIf="listquans$ | async; then display; else loading"></div>
         <ng-template #display>
             <div class="row">
-                <div class="col-md-4 pd-checkbox" *ngFor="let quan of listquans$ | async">
-                    <label class="customer-checkbox">
+                <div class="col-md-4 pd-checkbox" *ngFor="let quan of listquans$ | async" routerLink="/dashboard/san/{{quan.id}}">
+                    <label class="customer-checkbox"   >
                         <div class="row">
                             <div >
                                 <sb-card>

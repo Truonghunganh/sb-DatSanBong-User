@@ -15,22 +15,7 @@ const routes: Routes = [
             ),
     },
 
-    {
-        path: 'doctors',
-        loadChildren: () =>
-            import('modules/doctors/doctors-routing.module').then(
-                m => m.DoctorsRoutingModule
-            ),
-    },
-  
 
-    {
-        path: 'Trang_chu',
-        loadChildren: () =>
-            import('modules/trangchu/trangchu-routing.module').then(
-                m => m.TrangchuRoutingModule
-            ),
-    },
     {
         path: 'auth',
         loadChildren: () =>

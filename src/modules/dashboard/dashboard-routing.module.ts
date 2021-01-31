@@ -19,24 +19,29 @@ export const ROUTES: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'quan/' + environment.iduser,
+        redirectTo: '/dashboard/quan',
         //redirectTo: 'quan/:iduser',
     },
 
     {
-        path: 'quan/:iduser',
+        path: 'quan',
         canActivate: [],
         component: dashboardContainers.DashboardComponent,
     },
     {
-        path: 'san/:iduser/:idquan',
+        path: 'san/:idquan',
         canActivate: [],
         component: dashboardContainers.DashboardListsanComponent,
     },
     {
-        path: 'user/:iduser',
+        path: 'user',
         canActivate: [],
-        component: dashboardContainers.ListdansanbyiduserComponent,
+        component: dashboardContainers.DashboardUserComponent,
+    },
+    {
+        path: 'edituser',
+        canActivate: [],
+        component: dashboardContainers.DashboardUserEditComponent,
     },
 
   
