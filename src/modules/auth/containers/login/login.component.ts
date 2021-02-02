@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { User} from './../../models/auth.model';
 import Swal from 'sweetalert2';
 
-import { Admin } from './../../models/auth.model';
 import { AuthService } from './../../services/auth.service';
 
 @Component({
@@ -30,8 +29,6 @@ export class LoginComponent implements OnInit {
         });
         this.authService.checkTokenUser().subscribe(
             result => {
-                console.log(result);
-                
                 if (result.status) {
                     this.router.navigate(['/dashboard/quan']);
                 }

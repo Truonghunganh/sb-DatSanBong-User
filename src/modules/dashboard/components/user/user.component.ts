@@ -31,8 +31,7 @@ export class UserComponent implements OnInit {
                 this.user= result.user;
                 this.checkuser=true;
                 this.getListDatSanByUserToken();
-                this.changeDetectorRef.detectChanges();
-
+ 
             } else {
                 this.router.navigate(['/auth/login']);
             }
@@ -42,6 +41,8 @@ export class UserComponent implements OnInit {
     getListDatSanByUserToken() {
         this.checklistdansan = false;
         this.dashboardService.getListDatSanByUserToken().subscribe(result => {
+            console.log(result);
+            
             if (result.status) {
                 this.ListDatSanByIduservaonhungngaytoi = result.datsans;
                 this.checklistdansan = true;

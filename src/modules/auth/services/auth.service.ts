@@ -4,10 +4,9 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
+import {User,User1} from "../models/auth.model"
 import { environment } from './../../../environments/environment';
 import { AppCommonService } from './../../app-common/services/app-common.service';
-import { Admin, Admin1 } from './../models/auth.model';
 
 @Injectable()
 export class AuthService {
@@ -38,7 +37,7 @@ export class AuthService {
             catchError(this.appCommonService.errorHandler)
         )
     }
-    login(user : any): Observable<any>{
+    login(user : User): Observable<any>{
         console.log(this.appCommonService.httpOptions);
         
         return this.http.post<any>('http://localhost:8000/api/v1/loginUser', user, this.appCommonService.httpOptions).pipe(
@@ -51,7 +50,18 @@ export class AuthService {
             }),
             catchError(this.appCommonService.errorHandler)
         )
-    }    
+    }
+    RegisterUser(user: User1): Observable<any> {
+       console.log(user);
+       
+        return this.http.post<any>('http://localhost:8000/api/v1/registerUser', user).pipe(
+            tap(data => {
+                return of(data);
+            }),
+            catchError(this.appCommonService.errorHandler)
+        )
+    }
+
     setToken(token:string){
         this.storage.set('tokenUser', JSON.stringify(token));
     }

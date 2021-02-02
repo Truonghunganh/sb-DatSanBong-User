@@ -20,7 +20,7 @@ export const ROUTES: Routes = [
         path: '',
         pathMatch: 'full',
         redirectTo: '/dashboard/quan',
-        //redirectTo: 'quan/:iduser',
+         //redirectTo: 'quan/:iduser',
     },
 
     {

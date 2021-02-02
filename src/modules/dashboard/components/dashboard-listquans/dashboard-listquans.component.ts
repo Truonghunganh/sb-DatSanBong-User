@@ -21,7 +21,7 @@ export class DashboardListquansComponent implements OnInit {
         private changeDetectorRef: ChangeDetectorRef
 
         ) {}
-    listquans$: any;
+    listquans: any;
     checkquan=false;
     url = environment.url;
     urlCLU= environment.urlCLU;
@@ -32,20 +32,26 @@ export class DashboardListquansComponent implements OnInit {
 
     checktoken(){
         this.authService.checkTokenUser().subscribe(data=>{
+            console.log(data);
+            
             if (!data.status) {
                 this.router.navigate(['/auth/login']);
             }else{
                 this.getListquans();
-                this.changeDetectorRef.detectChanges();
+                
             }
         })
     }
     getListquans() {
         this.checkquan= false;
-        this.listquans$=this.dashboardService.getListQuans().pipe(map((result=>result.quan)))
         this.dashboardService.getListQuans().subscribe(data=>{
             console.log(data);
             
-        });
+            if(data.status){
+                this.listquans=data.quan;
+                this.checkquan=true;
+                this.changeDetectorRef.detectChanges();
+            }
+        })
     }
 }
