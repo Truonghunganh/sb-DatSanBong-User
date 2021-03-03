@@ -48,7 +48,7 @@ export class DashboardListquansComponent implements OnInit {
             console.log(data);
             
             if(data.status){
-                this.listquans=data.quan;
+                this.listquans=data.quans;
                 this.checkquan=true;
                 this.changeDetectorRef.detectChanges();
             }

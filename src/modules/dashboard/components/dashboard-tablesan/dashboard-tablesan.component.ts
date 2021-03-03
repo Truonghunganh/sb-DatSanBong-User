@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Datsan} from '../../models/dashboard.model' 
 import {AuthService} from '../../../auth/services/auth.service';
-
+import { formatDate } from '@angular/common';
 @Component({
     selector: 'sb-dashboard-tablesan',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -90,17 +90,19 @@ export class DashboardTablesanComponent implements OnInit {
         this.trackingObservable = false;
         
         this.dashboardService.getsanByidquan(idquan, ngay).subscribe( result=>{
+            console.log(result);
+            
             if(result.status){
                 const arrMang = new Array();
                 for (let i = 0; i < result.datsans.length; i++) {
                     arrMang[i] = this.mangdatsancuamotsan(result.datsans[i]);
                 }
                 this.mangDatsan = arrMang;
+                
                 this.listsanByidquan = result.san;
                 this.trackingObservable = true;
                 this.ref.detectChanges();
             }
-            
         })
     }
 
@@ -110,63 +112,68 @@ export class DashboardTablesanComponent implements OnInit {
 
     datsan(gio: number, idsan: number, priceperhour: number, namesan: string, numberpeople:number){
         let ngay = this.ngayvagio.substr(0,10);
-        if (ngay>new Date().toISOString().slice(0, 10)) {
-            switch (gio) {
-                case 0:
-                    this.ngayvagio = ngay + " 05:00:00";
-                    break;
-                case 1:
-                    this.ngayvagio = ngay + " 06:00:00";
-                    break;
-                case 2:
-                    this.ngayvagio = ngay + " 07:00:00";
-                    break;
-                case 3:
-                    this.ngayvagio = ngay + " 08:00:00";
-                    break;
-                case 4:
-                    this.ngayvagio = ngay + " 09:00:00";
-                    break;
-                case 5:
-                    this.ngayvagio = ngay + " 10:00:00";
-                    break;
-                case 6:
-                    this.ngayvagio = ngay + " 11:00:00";
-                    break;
-                case 7:
-                    this.ngayvagio = ngay + " 12:00:00";
-                    break;
+        switch (gio) {
+            case 0:
+                this.ngayvagio = ngay + " 05:00:00";
+                break;
+            case 1:
+                this.ngayvagio = ngay + " 06:00:00";
+                break;
+            case 2:
+                this.ngayvagio = ngay + " 07:00:00";
+                break;
+            case 3:
+                this.ngayvagio = ngay + " 08:00:00";
+                break;
+            case 4:
+                this.ngayvagio = ngay + " 09:00:00";
+                break;
+            case 5:
+                this.ngayvagio = ngay + " 10:00:00";
+                break;
+            case 6:
+                this.ngayvagio = ngay + " 11:00:00";
+                break;
+            case 7:
+                this.ngayvagio = ngay + " 12:00:00";
+                break;
 
-                case 8:
-                    this.ngayvagio = ngay + " 13:00:00";
-                    break;
-                case 9:
-                    this.ngayvagio = ngay + " 14:00:00";
-                    break;
-                case 10:
-                    this.ngayvagio = ngay + " 15:00:00";
-                    break;
-                case 11:
-                    this.ngayvagio = ngay + " 16:00:00";
-                    break;
+            case 8:
+                this.ngayvagio = ngay + " 13:00:00";
+                break;
+            case 9:
+                this.ngayvagio = ngay + " 14:00:00";
+                break;
+            case 10:
+                this.ngayvagio = ngay + " 15:00:00";
+                break;
+            case 11:
+                this.ngayvagio = ngay + " 16:00:00";
+                break;
 
-                case 12:
-                    this.ngayvagio = ngay + " 17:00:00";
-                    break;
-                case 13:
-                    this.ngayvagio = ngay + " 18:00:00";
-                    break;
-                case 14:
-                    this.ngayvagio = ngay + " 19:00:00";
-                    break;
-                case 15:
-                    this.ngayvagio = ngay + " 20:00:00";
-                    break;
+            case 12:
+                this.ngayvagio = ngay + " 17:00:00";
+                break;
+            case 13:
+                this.ngayvagio = ngay + " 18:00:00";
+                break;
+            case 14:
+                this.ngayvagio = ngay + " 19:00:00";
+                break;
+            case 15:
+                this.ngayvagio = ngay + " 20:00:00";
+                break;
 
 
-                default:
-                    break;
-            }
+            default:
+                break;
+        }
+        if (!(this.ngayvagio > formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss', 'en-US'))) {
+            Swal.fire({
+                icon: 'error',
+                text: 'ngày giờ đặt sân trước ngày giờ hiện tại',
+            })
+        }else{
             Swal.fire({
                 html: '<h1 style="color: #41c04d;">thông tin sân mà bạn muốn đặt</h1><table style="width: 100%;" border="1"><tr><td>tên quán </td><td>' + this.quanByid.name + '</td></tr><tr><td>tên sân </td><td>' + namesan + '</td></tr><tr><td>số người </td><td>' + numberpeople + '</td></tr><tr><td>số tiền thanh toán</td><td>' + priceperhour + '</td></tr><tr><td>giờ đặt</td><td>' + this.ngayvagio + '</td></tr></table>',
                 text: "Do you want to save the changes?",
@@ -175,11 +182,17 @@ export class DashboardTablesanComponent implements OnInit {
             }).then(result => {
                 if (result.value) {
 
-                    const ds = new Datsan(idsan,this.ngayvagio, priceperhour);
+                    const ds = new Datsan(idsan, this.ngayvagio, priceperhour);
                     this.dashboardService.addDatSan(ds).subscribe(data => {
                         console.log(data);
-
+                        
                         if (data.status) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Bạn đã đặt sân thành công',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
                             this.getSanByidquan(this.idquan, ngay);
                         }
                         else {
@@ -189,20 +202,10 @@ export class DashboardTablesanComponent implements OnInit {
                             })
                         }
                     });
-
-                } else {
-
-                }
+                } 
             });
-
-        } else {
-            Swal.fire({
-                icon: 'error',
-                text: 'ngày đặt sân phải trước 1 ngày !',
-            })
-
+            
         }
-        
 
 
     }

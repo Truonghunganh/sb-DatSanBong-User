@@ -19,17 +19,17 @@ export const ROUTES: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: '/dashboard/quan',
+        redirectTo: '/dashboard/quans',
          //redirectTo: 'quan/:iduser',
     },
 
     {
-        path: 'quan',
+        path: 'quans',
         canActivate: [],
         component: dashboardContainers.DashboardComponent,
     },
     {
-        path: 'san/:idquan',
+        path: 'quans/:idquan',
         canActivate: [],
         component: dashboardContainers.DashboardListsanComponent,
     },

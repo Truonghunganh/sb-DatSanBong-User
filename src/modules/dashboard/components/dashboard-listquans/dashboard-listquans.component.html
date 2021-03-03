@@ -3,7 +3,7 @@
         <div *ngIf="checkquan; then display; else loading"></div>
         <ng-template #display>
             <div class="row">
-                <div class="col-md-4 pd-checkbox" *ngFor="let quan of listquans" routerLink="/dashboard/san/{{quan.id}}">
+                <div class="col-md-4 pd-checkbox" *ngFor="let quan of listquans" routerLink="/dashboard/quans/{{quan.id}}">
                     <label class="customer-checkbox"   >
                         <div class="row">
                             <div >

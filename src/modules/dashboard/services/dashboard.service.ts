@@ -27,7 +27,7 @@ export class DashboardService {
     }
     
     getQuanById(id: number): Observable<any>{
-        return this.http.get<any>(environment.url + "/api/v1/quan/" + id)
+        return this.http.get<any>(environment.url + "/api/v1/quan/" + id,this.appCommonService.httpOptions)
                 .pipe(tap(data => of(data)), catchError(this.appCommonService.errorHandler));
     }
     
@@ -67,6 +67,15 @@ export class DashboardService {
                 
                 of(data)} )
             ,catchError(this.appCommonService.errorHandler)
+        )
+    }
+
+    deleteDatSan(id:number): Observable<any> {
+        return this.http.delete<any>(environment.url + "/api/v1/datsans/"+id,  this.appCommonService.httpOptions).pipe(
+            tap(data => {
+                of(data)
+            })
+            , catchError(this.appCommonService.errorHandler)
         )
     }
 }

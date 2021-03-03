@@ -16,7 +16,7 @@ export const sideNavItems: SideNavItems = {
     Dashboard: {
         icon: 'arrows-alt',
         text: 'Dashboard',
-        link: '/dashboard/quan',
+        link: '/dashboard/quans',
     },
     Customers: {
         icon: 'user',

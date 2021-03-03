@@ -47,13 +47,16 @@
             <div class="row">
                 <table style="width: 100%;" border="1">
                     <tr>
-                        <td style="text-align: center;width: 5%;">id</td>
-                        <td style="text-align: center;width: 20%;">Tên quán</td>
-                        <td style="text-align: center;width: 30%;">Địa chỉ quán</td>
-                        <td style="text-align: center;width: 10%;">Số điện thoại quán</td>
-                        <td style="text-align: center;width: 15%;">Tên sân</td>
-                        <td style="text-align: center;width: 25%;">Thời gian đặt sân</td>
-                        <td style="text-align: center;width: 5%;">Số tiền</td>
+                        <td style="text-align: center">id</td>
+                        <td style="text-align: center;">Tên quán</td>
+                        <td style="text-align: center">Địa chỉ quán</td>
+                        <td style="text-align: center">Số điện thoại quán</td>
+                        <td style="text-align: center;">Tên sân</td>
+                        <td style="text-align: center;">Số người trên sân</td>
+                        <td style="text-align: center;">Thời gian đặt sân</td>
+                        <td style="text-align: center;">Số tiền</td>
+                        <td style="text-align: center;">Trạng thái</td>
+                        <td style="text-align: center;">Xóa</td>
                     </tr>
                     <tr *ngFor="let datsan of ListDatSanByIduservaonhungngaytoi">
                         <td class="td">
@@ -72,12 +75,30 @@
                         <td class="td">
                             {{datsan.nameSan}}
                         </td>
-
+                        <td class="td">
+                            {{datsan.numberpeople}}
+                        </td>
                         <td class="td">
                             {{datsan.time}}
                         </td>
                         <td class="td">
                             {{datsan.price}}
+                        </td>
+                        <td class="td">
+                            <div class="custom-control custom-switch">
+                                <div *ngIf="datsan.xacnhan">
+                                    <input type="checkbox" class="custom-control-input" checked>
+                                    <label class="custom-control-label" type='hidden' for="status"></label>
+                                </div>
+                                <div *ngIf="!datsan.xacnhan">
+                                    <input type="checkbox" class="custom-control-input">
+                                    <label class="custom-control-label" type='hidden' for="status"></label>
+                                </div>
+                            </div>
+
+                        </td>
+                        <td class="td">
+                                <fa-icon (click)="deleteDatSan(datsan)" [icon]='["fas","trash"]' class='fas fa-trash fa-2x'></fa-icon>
                         </td>
 
                     </tr>
@@ -93,5 +114,6 @@
                 </div>
             </div>
         </ng-template>
+        <strong>Lưu ý :</strong> trạng thái bận : là chủ quán đã duyệt
     </div>
 </sb-card>
