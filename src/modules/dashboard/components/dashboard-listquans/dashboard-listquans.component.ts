@@ -1,9 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { DashboardService } from "../../services/dashboard.service";
-import { map } from 'rxjs/operators';
 import { environment } from './../../../../environments/environment';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import {AuthService} from '../../../auth/services/auth.service'
 @Component({
     selector: 'sb-dashboard-listquans',
@@ -15,9 +13,7 @@ export class DashboardListquansComponent implements OnInit {
     constructor(
         private dashboardService: DashboardService,
         private authService: AuthService,
-        private activatedRoute: ActivatedRoute,
         private router: Router,
-        private location: Location,
         private changeDetectorRef: ChangeDetectorRef
 
         ) {}

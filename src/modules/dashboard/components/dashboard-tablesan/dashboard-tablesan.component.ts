@@ -43,7 +43,7 @@ export class DashboardTablesanComponent implements OnInit {
                 this.router.navigate(['/auth/login']);
             } else {
                 this.idquan = Number(this.activatedRoute.snapshot.paramMap.get('idquan'));
-                this.getQuanByid(this.idquan);
+                this.getQuanByIdAndTokenUser(this.idquan);
                 this.ngayvagio = new Date().toISOString().slice(0, 10);
                 this.getSanByidquan(this.idquan, this.ngayvagio);
             }
@@ -106,8 +106,8 @@ export class DashboardTablesanComponent implements OnInit {
         })
     }
 
-    getQuanByid(id:number){
-        this.quanByid$ = this.dashboardService.getQuanById(id).pipe(map(result => this.quanByid = result.quan));
+    getQuanByIdAndTokenUser(id:number){
+        this.quanByid$ = this.dashboardService.getQuanByIdAndTokenUser(id).pipe(map(result => this.quanByid = result.quan));
     }
 
     datsan(gio: number, idsan: number, priceperhour: number, namesan: string, numberpeople:number){
@@ -176,7 +176,6 @@ export class DashboardTablesanComponent implements OnInit {
         }else{
             Swal.fire({
                 html: '<h1 style="color: #41c04d;">thông tin sân mà bạn muốn đặt</h1><table style="width: 100%;" border="1"><tr><td>tên quán </td><td>' + this.quanByid.name + '</td></tr><tr><td>tên sân </td><td>' + namesan + '</td></tr><tr><td>số người </td><td>' + numberpeople + '</td></tr><tr><td>số tiền thanh toán</td><td>' + priceperhour + '</td></tr><tr><td>giờ đặt</td><td>' + this.ngayvagio + '</td></tr></table>',
-                text: "Do you want to save the changes?",
                 showCancelButton: true,
                 confirmButtonText: `thanh toán`,
             }).then(result => {

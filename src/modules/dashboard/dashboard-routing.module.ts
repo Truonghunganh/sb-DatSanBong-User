@@ -44,7 +44,12 @@ export const ROUTES: Routes = [
         component: dashboardContainers.DashboardUserEditComponent,
     },
 
-  
+    {
+        path: 'searchquan',
+        canActivate: [],
+        component: dashboardContainers.DashboardGoogleMapsSearchQuanComponent,
+    },
+
 ];
 
 @NgModule({
