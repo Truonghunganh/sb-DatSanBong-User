@@ -15,24 +15,23 @@ export class DashboardService {
         private authService: AuthService
         ) {}
 
-    getListQuans(): Observable<any>{
-        return this.http
-            .get<any>(environment.url + "/api/v1/quan",this.appCommonService.httpOptions)
-            .pipe(
-                tap(data => {
-                    of(data);
-                },
-                    catchError(this.appCommonService.errorHandler)
+    getListQuans(page: number): Observable<any>{
+        return this.http.get<any>(environment.url + "/api/v1/quan?page="+page,this.appCommonService.httpOptions)
+            .pipe(tap(data => {of(data);},
+                catchError(this.appCommonService.errorHandler)
                 ));
     }
-    
+    getAllQuanDangHoatdongByUser(): Observable<any>{
+        return this.http.get<any>(environment.url + "/api/v1/getAllQuanDangHoatdongByUser",this.appCommonService.httpOptions).
+            pipe(tap(data =>of(data)), catchError(this.appCommonService.errorHandler))
+    }
     getQuanByIdAndTokenUser(id: number): Observable<any>{
         return this.http.post<any>(environment.url + "/api/v1/getQuanByIdAndTokenUser",{"idquan":id},this.appCommonService.httpOptions)
                 .pipe(tap(data => of(data)), catchError(this.appCommonService.errorHandler));
     }
     
-    getsanByidquan(idquan:number,ngay:any): Observable<any>{
-        return this.http.get<any>(environment.url + "/api/v1/san?idquan=" + idquan + "&start_time="+ngay)
+    getDatSansvaSansByUserAndIdquanAndNgay(idquan:number,ngay:any): Observable<any>{
+        return this.http.get<any>(environment.url + "/api/v1/getDatSansvaSansByUserAndIdquanAndNgay?idquan=" + idquan + "&start_time="+ngay,this.appCommonService.httpOptions)
             .pipe(
                 tap(data => {
                     of(data);
@@ -69,6 +68,11 @@ export class DashboardService {
             ,catchError(this.appCommonService.errorHandler)
         )
     }
+    reviewByUser(idquan: number,review: number): Observable<any> {
+        return this.http.post<any>(environment.url + "/api/v1/reviewByUser",{"idquan": idquan, "review": review}, this.appCommonService.httpOptions).pipe(
+            tap(data => of(data)), catchError(this.appCommonService.errorHandler)
+        );
+    }
 
     deleteDatSan(id:number): Observable<any> {
         return this.http.delete<any>(environment.url + "/api/v1/datsans/"+id,  this.appCommonService.httpOptions).pipe(
@@ -78,4 +82,6 @@ export class DashboardService {
             , catchError(this.appCommonService.errorHandler)
         )
     }
+    
+
 }

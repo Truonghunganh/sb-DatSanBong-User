@@ -38,7 +38,7 @@ export class GoogleMapsSearchQuanComponent implements OnInit {
         })
     }
     getListquans() {
-        this.dashboardService.getListQuans().subscribe(data => {
+        this.dashboardService.getAllQuanDangHoatdongByUser().subscribe(data => {
             console.log(data);
 
             if (data.status) {

@@ -44,28 +44,30 @@
     <div class="card-body" *ngIf="checklistdansan">
         <div *ngIf="checklistdansan; then display1 ; else loading1"></div>
         <ng-template #display1>
-            <div class="row">
-                <table style="width: 100%;" border="1">
+            <table class="table table-striped" border="1">
+                <thead class="thead-dark">
                     <tr>
-                        <td style="text-align: center">id</td>
-                        <td style="text-align: center;">Tên quán</td>
-                        <td style="text-align: center">Địa chỉ quán</td>
-                        <td style="text-align: center">Số điện thoại quán</td>
-                        <td style="text-align: center;">Tên sân</td>
-                        <td style="text-align: center;">Số người trên sân</td>
-                        <td style="text-align: center;">Thời gian đặt sân</td>
-                        <td style="text-align: center;">Số tiền</td>
-                        <td style="text-align: center;">Trạng thái</td>
-                        <td style="text-align: center;">Xóa</td>
+                        <td>id</td>
+                        <td >Tên quán</td>
+                        <td >Địa chỉ quán</td>
+                        <td >Số điện thoại quán</td>
+                        <td >Tên sân</td>
+                        <td >Số người trên sân</td>
+                        <td >Thời gian đặt sân</td>
+                        <td >Số tiền</td>
+                        <td >Trạng thái</td>
+                        <td >Hủy đặt sân</td>
                     </tr>
-                    <tr *ngFor="let datsan of ListDatSanByIduservaonhungngaytoi">
+                </thead>
+                <tbody>
+                    <tr *ngFor="let datsan of datsansnew">
                         <td class="td">
                             {{datsan.id}}
                         </td>
                         <td class="td">
                             {{datsan.nameQuan}}
                         </td>
-
+                    
                         <td class="td">
                             {{datsan.addressQuan}}
                         </td>
@@ -95,16 +97,16 @@
                                     <label class="custom-control-label" type='hidden' for="status"></label>
                                 </div>
                             </div>
-
+                    
                         </td>
                         <td class="td">
-                                <fa-icon (click)="deleteDatSan(datsan)" [icon]='["fas","trash"]' class='fas fa-trash fa-2x'></fa-icon>
+                            <fa-icon (click)="deleteDatSan(datsan)" [icon]='["fas","trash"]' class='fas fa-trash fa-2x'></fa-icon>
                         </td>
-
+                    
                     </tr>
-                </table>
-
-            </div>
+                </tbody>
+            </table>
+            
         </ng-template>
 
         <ng-template #loading1>
@@ -114,6 +116,24 @@
                 </div>
             </div>
         </ng-template>
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" (click)="Previous()">Previous</a>
+                </li>
+                <div *ngFor="let vitri of mangtrang; index as i">
+                    <li *ngIf="vitri" class="page-item active">
+                        <a class="page-link" (click)="chontrang(i+1)">{{i+1}} </a>
+                    </li>
+                    <li *ngIf="!vitri" class="page-item">
+                        <a class="page-link" (click)="chontrang(i+1)">{{i+1}} </a>
+                    </li>
+                </div>
+                <li class="page-item">
+                    <a class="page-link" (click)="Next()">Next</a>
+                </li>
+            </ul>
+        </nav>
         <strong>Lưu ý :</strong> trạng thái bận : là chủ quán đã duyệt
     </div>
 </sb-card>

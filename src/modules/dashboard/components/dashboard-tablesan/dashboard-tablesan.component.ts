@@ -24,14 +24,14 @@ export class DashboardTablesanComponent implements OnInit {
         private authService: AuthService,
     ) { }
     idquan=1;
-    listsanByidquan: any;
-    quanByid$: any;
-    quanByid:any;
+    sans: any;
+    chekquanvasan= false;
+    checkdatsans = false;
+    quan:any;
     url = environment.url;
     mangDatsan=new Array();
     today = new Date().toISOString().slice(0, 10);
     ngayvagio:string="";
-    trackingObservable = false;
     ngOnInit() {
         this.checktoken();
     }
@@ -43,16 +43,15 @@ export class DashboardTablesanComponent implements OnInit {
                 this.router.navigate(['/auth/login']);
             } else {
                 this.idquan = Number(this.activatedRoute.snapshot.paramMap.get('idquan'));
-                this.getQuanByIdAndTokenUser(this.idquan);
                 this.ngayvagio = new Date().toISOString().slice(0, 10);
-                this.getSanByidquan(this.idquan, this.ngayvagio);
+                this.getDatSansvaSansByUserAndIdquanAndNgay(this.idquan, this.ngayvagio);
             }
         })
     }
     chonngay(ngay :any){
         this.ngayvagio = ngay.target.value;
         console.log(ngay.target.value);
-        this.getSanByidquan(this.idquan, ngay.target.value);
+        this.getDatSansvaSansByUserAndIdquanAndNgay(this.idquan, ngay.target.value);
         
     }
 
@@ -85,29 +84,72 @@ export class DashboardTablesanComponent implements OnInit {
         return array;
     }
 
-    getSanByidquan(idquan: number, ngay: any){
+    getDatSansvaSansByUserAndIdquanAndNgay(idquan: number, ngay: any){
         
-        this.trackingObservable = false;
-        
-        this.dashboardService.getsanByidquan(idquan, ngay).subscribe( result=>{
-            console.log(result);
+        this.checkdatsans = false;
+        this.dashboardService.getDatSansvaSansByUserAndIdquanAndNgay(idquan, ngay).subscribe(data=>{
+            console.log(data);
             
-            if(result.status){
+            if (data.status){
                 const arrMang = new Array();
-                for (let i = 0; i < result.datsans.length; i++) {
-                    arrMang[i] = this.mangdatsancuamotsan(result.datsans[i]);
+                for (let i = 0; i < data.datsans.length; i++) {
+                    arrMang[i] = this.mangdatsancuamotsan(data.datsans[i]);
                 }
+                this.reviewuser = Math.round(data.reviewcuauser);
+                this.mangreviewuser = this.taomotmangreview(this.reviewuser);
+                this.reviewquan = Math.round(data.quan.review);
+                this.mangreviewquan = this.taomotmangreview(this.reviewquan);
                 this.mangDatsan = arrMang;
-                
-                this.listsanByidquan = result.san;
-                this.trackingObservable = true;
+                if(!this.chekquanvasan){
+                    this.quan = data.quan;
+                    this.sans = data.sans;
+                    this.chekquanvasan=true;
+                }
+                this.checkdatsans= true;
                 this.ref.detectChanges();
             }
         })
     }
 
-    getQuanByIdAndTokenUser(id:number){
-        this.quanByid$ = this.dashboardService.getQuanByIdAndTokenUser(id).pipe(map(result => this.quanByid = result.quan));
+    updatereview(){
+        this.dashboardService.reviewByUser(this.idquan,this.reviewuser).subscribe(data =>{
+            if (data.status) {
+                Swal.fire({
+                    icon: 'success',
+                    title: data.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    text: data.message,
+                })
+            }
+
+        })
+    }
+    chonreview(review: number){
+        this.mangreviewuser=this.taomotmangreview(review);
+        this.reviewuser= review;
+    }
+    mangreviewquan: any;
+    mangreviewuser: any;
+    reviewuser = 0;
+    reviewquan = 0;
+
+    taomotmangreview(review: number) {
+        switch (review) {
+            case 0: return [false, false, false, false, false];
+            case 1: return [true, false, false, false, false];
+            case 2: return [true, true, false, false, false];
+            case 3: return [true, true, true, false, false];
+            case 4: return [true, true, true, true, false];
+            case 5: return [true, true, true, true, true];
+            default:
+                break;
+        }
     }
 
     datsan(gio: number, idsan: number, priceperhour: number, namesan: string, numberpeople:number){
@@ -175,7 +217,7 @@ export class DashboardTablesanComponent implements OnInit {
             })
         }else{
             Swal.fire({
-                html: '<h1 style="color: #41c04d;">thông tin sân mà bạn muốn đặt</h1><table style="width: 100%;" border="1"><tr><td>tên quán </td><td>' + this.quanByid.name + '</td></tr><tr><td>tên sân </td><td>' + namesan + '</td></tr><tr><td>số người </td><td>' + numberpeople + '</td></tr><tr><td>số tiền thanh toán</td><td>' + priceperhour + '</td></tr><tr><td>giờ đặt</td><td>' + this.ngayvagio + '</td></tr></table>',
+                html: '<h1 style="color: #41c04d;">thông tin sân mà bạn muốn đặt</h1><table style="width: 100%;" border="1"><tr><td>tên quán </td><td>' + this.quan.name + '</td></tr><tr><td>tên sân </td><td>' + namesan + '</td></tr><tr><td>số người </td><td>' + numberpeople + '</td></tr><tr><td>số tiền thanh toán</td><td>' + priceperhour + '</td></tr><tr><td>giờ đặt</td><td>' + this.ngayvagio + '</td></tr></table>',
                 showCancelButton: true,
                 confirmButtonText: `thanh toán`,
             }).then(result => {
@@ -192,7 +234,7 @@ export class DashboardTablesanComponent implements OnInit {
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            this.getSanByidquan(this.idquan, ngay);
+                            this.getDatSansvaSansByUserAndIdquanAndNgay(this.idquan, ngay);
                         }
                         else {
                             Swal.fire({
