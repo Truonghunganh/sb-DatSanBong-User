@@ -9,11 +9,11 @@
                 <table class="table table-striped " style="width:100%">
                     <tbody>
                         <tr>
-                            <td>full_name</td>
+                            <td>Tên</td>
                             <td> <strong>{{ user.name}}</strong></td>
                         </tr>
                         <tr>
-                            <td>Phone</td>
+                            <td>Số điện thoại</td>
                             <td><strong>{{ user.phone}}</strong></td>
                         </tr>
                         <tr>
@@ -21,7 +21,7 @@
                             <td><strong>{{ user.gmail }}</strong></td>
                         </tr>
                         <tr>
-                            <td>Address</td>
+                            <td>Địa chỉ</td>
                             <td><strong>{{ user.address}}</strong></td>
                         </tr>
                     </tbody>
@@ -47,7 +47,7 @@
             <table class="table table-striped" border="1">
                 <thead class="thead-dark">
                     <tr>
-                        <td>id</td>
+                        <td>STT</td>
                         <td >Tên quán</td>
                         <td >Địa chỉ quán</td>
                         <td >Số điện thoại quán</td>
@@ -60,9 +60,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let datsan of datsansnew">
+                    <tr *ngFor="let datsan of datsansnew ; index as i">
                         <td class="td">
-                            {{datsan.id}}
+                            {{(page-1)*10+i+1}}
                         </td>
                         <td class="td">
                             {{datsan.nameQuan}}

@@ -42,12 +42,13 @@ export class LoginComponent implements OnInit {
         )
     }
     submit(phone : string, password : string){
-        console.log(phone,password);
+        this.checklogin=false;
         const user=new User(phone,password);
         this.authService.login(user).subscribe(result => {
             if (result.status) {
                 this.router.navigate(['/dashboard/quans']);
             } else {
+                this.checklogin=true;
                 Swal.fire({
                     icon: 'error',
                     text: '"phone or password is false of user!',

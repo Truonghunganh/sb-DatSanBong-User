@@ -60,15 +60,15 @@ export class UserComponent implements OnInit {
         this.datsansnew = [];
         this.tongpage = this.ListDatSanByIduservaonhungngaytoi.length / 10;
         let i = (page - 1) * 10;
-        let h = i;
         let k;
-        if (i == 0){
-            h=1;
-            k = this.ListDatSanByIduservaonhungngaytoi.length / h;
+        if (page<this.tongpage){
+            k = 10;
         }else{
-            k = this.ListDatSanByIduservaonhungngaytoi.length % h;
+            k = this.ListDatSanByIduservaonhungngaytoi.length %10;
+            console.log(k);
+            
         }
-        console.log(i, h, k);
+        console.log(this.tongpage,i, k,page);
         
         for (let j = 0; j<k; j++) {
             if (j == 10) {

@@ -15,8 +15,8 @@ export class DashboardService {
         private authService: AuthService
         ) {}
 
-    getListQuans(page: number): Observable<any>{
-        return this.http.get<any>(environment.url + "/api/v1/quan?page="+page,this.appCommonService.httpOptions)
+    getListQuans(): Observable<any>{
+        return this.http.get<any>(environment.url + "/api/v1/quan",this.appCommonService.httpOptions)
             .pipe(tap(data => {of(data);},
                 catchError(this.appCommonService.errorHandler)
                 ));

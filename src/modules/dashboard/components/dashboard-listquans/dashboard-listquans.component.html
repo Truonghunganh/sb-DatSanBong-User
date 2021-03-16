@@ -4,10 +4,10 @@
             value="Tìm kiếm quán trên bản đồ" />
     </div>
     <div class="card-body">
-        <div *ngIf="checkquan; then display; else loading"></div>
+        <div *ngIf="checkquans; then display; else loading"></div>
         <ng-template #display>
             <div class="row">
-                <div class="card" style="width: 22rem;" *ngFor="let quan of listquans; index as i;" routerLink="/dashboard/quans/{{quan.id}}">
+                <div class="card" style="width: 22rem;" *ngFor="let quan of quansnew; index as i;" routerLink="/dashboard/quans/{{quan.id}}">
                     <div  *ngIf="quan.image">
                         <img class="card-img-top" style="width: 22rem; height: 18rem" src="{{url+'/'+quan.image}}" alt="Card image cap">
                     </div>
@@ -18,15 +18,15 @@
                         <table class="table table-striped ">
                             <tbody>
                                 <tr>
-                                    <td>full_name</td>
+                                    <td>Tên</td>
                                     <td> <strong>{{ quan.name }}</strong></td>
                                 </tr>
                                 <tr>
-                                    <td>Phone</td>
+                                    <td>Số điện thoại</td>
                                     <td><strong>{{ quan.phone}}</strong></td>
                                 </tr>
                                 <tr>
-                                    <td>address</td>
+                                    <td>Địa chỉ</td>
                                     <td><strong>{{ quan.address }}</strong></td>
                                 </tr>
                             </tbody>

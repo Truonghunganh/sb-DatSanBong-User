@@ -17,14 +17,12 @@ export class DashboardListquansComponent implements OnInit {
         private changeDetectorRef: ChangeDetectorRef
 
         ) {}
-    listquans: any;
-    checkquan=false;
+    quans: any;
+    checkquans=false;
     url = environment.url;
     urlCLU= environment.urlCLU;
     ngOnInit() {
-        console.log(Math.round(55.45));
         this.checktoken();
-        
     }
 
     checktoken(){
@@ -34,30 +32,30 @@ export class DashboardListquansComponent implements OnInit {
             if (!data.status) {
                 this.router.navigate(['/auth/login']);
             }else{
-                this.getListquans(this.page);
+                this.getListquans();
                 
             }
         })
     }
     mangreview=new Array();
-    getListquans(page: number) {
-        this.checkquan= false;
-        this.motmangreview=this.taomotmangreview(3);
-        this.dashboardService.getListQuans(page).subscribe(data=>{
+    getListquans() {
+        this.checkquans= false;
+        
+        this.dashboardService.getListQuans().subscribe(data=>{
+            console.log(data);
+            
             if(data.status){
-                this.listquans=data.quans;
-                for (let i = 0; i < this.listquans.length; i++) {
-                    this.mangreview[i]=this.taomotmangreview(Math.round(this.listquans[i].review))                  
+                this.quans=data.quans;
+                for (let i = 0; i < this.quans.length; i++) {
+                    this.mangreview[i]=this.taomotmangreview(Math.round(this.quans[i].review))                  
                 }
-                this.checkquan=true;
-                this.tongpage=data.tongpage;
-                this.taomangtrang(this.page);
+                this.checkquans=true;
+                this.taoquansnew(this.page);
                 this.changeDetectorRef.detectChanges();
             }
         })
     }
 
-    motmangreview: any;
     taomotmangreview(review: number){
         switch (review) {
             case 0:return [false, false, false, false, false];
@@ -73,6 +71,29 @@ export class DashboardListquansComponent implements OnInit {
     page = 1;
     tongpage = 0;
     mangtrang: any;
+    quansnew: any;
+    taoquansnew(page: number) {
+        this.quansnew = [];
+        this.tongpage = this.quans.length / 3;
+        let i = (page - 1) * 3;
+        let k;
+        if (page < this.tongpage) {
+            k = 3;
+        } else {
+            k = this.quans.length % 3;
+    
+        }
+        console.log(this.tongpage, i, k, page);
+
+        for (let j = 0; j < k; j++) {
+            if (j == 3) {
+                break;
+            }
+            this.quansnew.push(this.quans[i + j]);
+
+        }
+        this.taomangtrang(page);
+    }
     taomangtrang(page: number) {
         var mang: Array<boolean> = [];
         for (let i = 0; i < this.tongpage; i++) {
@@ -83,22 +104,23 @@ export class DashboardListquansComponent implements OnInit {
         this.mangtrang = mang;
 
     }
-
     Previous() {
         if (this.page > 1) {
             this.page--;
-            this.getListquans(this.page);
+            this.taoquansnew(this.page);
         }
     }
     Next() {
         if (this.page < this.tongpage) {
             this.page++;
-            this.getListquans(this.page);
+            this.taoquansnew(this.page);
         }
     }
     chontrang(page: number) {
+        console.log(page);
+
         this.page = page;
-        this.getListquans(this.page);
+        this.taoquansnew(this.page);
     }
 
 }
