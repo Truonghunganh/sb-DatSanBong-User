@@ -86,16 +86,14 @@ export class GoogleMapsSearchQuanComponent implements OnInit {
                     '</tbody></table>'+ 
                     '<a href="/dashboard/quans/'+quans[i].id+'">chọn sân này</a>'
                     ).openPopup();
-               
-                // circle.bindPopup("I am a circle.");
-                // polygon.bindPopup("I am a polygon.");
             }
             var myIcon = L.icon({
                 iconUrl: '../../../assets/img/vitri.jpg',//'../../../assets/img/vitri.jpg',
                 iconSize: [25, 41],
                 
             });
-            L.circleMarker(latLong, { color: '#FF0000' }).addTo(mymap).bindPopup('<strong>tôi đang ở đây </strong>');
+            //L.marker(latLong, { color: myIcon }).addTo(mymap).bindPopup('<strong>tôi đang ở đây </strong>').openPopup();
+            L.circleMarker(latLong, { color: '#FF0000' }).addTo(mymap).bindPopup('<strong>tôi đang ở đây </strong>').openPopup();
 
 
         });

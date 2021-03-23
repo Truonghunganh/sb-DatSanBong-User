@@ -20,7 +20,7 @@ export class DashboardTablesanComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private location: Location,
-        private ref: ChangeDetectorRef,
+        private changeDetectorRef: ChangeDetectorRef,
         private authService: AuthService,
     ) { }
     idquan=1;
@@ -106,7 +106,7 @@ export class DashboardTablesanComponent implements OnInit {
                     this.chekquanvasan=true;
                 }
                 this.checkdatsans= true;
-                this.ref.detectChanges();
+                this.changeDetectorRef.detectChanges();
             }
         })
     }
@@ -248,6 +248,96 @@ export class DashboardTablesanComponent implements OnInit {
             
         }
 
+    }
+    hienthibinhluan="Xem binh luận";
+    checkhienthibinhluan=false;
+    checkcomments=false;
+    comments: any;
+    xembinhluan(){
+        this.checkhienthibinhluan=!this.checkhienthibinhluan;
+        if (this.checkhienthibinhluan) {
+            this.hienthibinhluan="Ẩn bình luận";
+            this.checkcomments=false;
+            this.dashboardService.getAllCommentCuaMotQuan(this.idquan).subscribe(data => {
+                console.log(data);
+                
+                if(data.status){
+                    this.comments=data.comments;
+                    for (let i = 0; i < this.comments.length; i++) {
+                        this.mangreview[i] = this.taomotmangreview(Math.round(this.comments[i].review));
+                        this.mangBL[i]=false;
+                    }
+                    console.log(this.mangreview);
+
+                    this.checkcomments=true;
+                    this.changeDetectorRef.detectChanges();
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: data.message,
+                    })
+                }
+            })           
+        }else{
+            this.hienthibinhluan = "Xem binh luận";
+
+        }
+    }
+    binhluan ="";
+    binhluancuaban(){
+        this.dashboardService.addComment(this.idquan, this.binhluan).subscribe(data =>{
+            if (data.status) {
+                this.comments = data.comments;
+                for (let i = 0; i < this.comments.length; i++) {
+                    this.mangreview[i] = this.taomotmangreview(Math.round(this.comments[i].review));
+                    this.mangBL[i] = false;
+                }
+                console.log(this.mangreview);
+
+                this.checkcomments = true;
+                this.changeDetectorRef.detectChanges();
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: data.message,
+                })
+            }
+            this.binhluan="";
+        })
+        
+    }
+    mangreview = new Array();
+    xoabinhluan(id:number){
+        console.log(id);
+        
+    }
+    
+    chinhsuaBL(vitri: number,id: number, binhluan: string){
+        console.log(id,binhluan);
+        this.mangBL[vitri]=false;
+        this.dashboardService.updateComment(id, binhluan).subscribe(data=>{
+            if (data.status) {
+                this.comments = data.comments;
+                console.log(this.comments);
+                console.log(this.mangBL);
+                
+                this.checkcomments = true;
+                this.changeDetectorRef.detectChanges();
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: data.message,
+                })
+            }
+        })
+    }
+    chon(i: number){
+        for (let k = 0; k < this.mangBL.length; k++) {
+            this.mangBL[k]=false;
+            
+        }
+        this.mangBL[i]=true;
 
     }
+    mangBL= new Array();
 }

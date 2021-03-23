@@ -41,19 +41,24 @@ export class LoginComponent implements OnInit {
             }
         )
     }
-    submit(phone : string, password : string){
-        this.checklogin=false;
-        const user=new User(phone,password);
+    phone="";
+    password="";
+    onSubmit(){
+        this.checklogin = false;
+        const user = new User(this.phone, this.password);
         this.authService.login(user).subscribe(result => {
             if (result.status) {
                 this.router.navigate(['/dashboard/quans']);
             } else {
-                this.checklogin=true;
+                this.checklogin = true;
                 Swal.fire({
                     icon: 'error',
-                    text: '"phone or password is false of user!',
+                    text: 'số điện thoại hay mật khẩu sai !',
                 })
+                this.checklogin = true;
+                this.changeDetectorRef.detectChanges();
             }
         })
     }
+    
 }

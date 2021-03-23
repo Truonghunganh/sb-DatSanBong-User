@@ -55,6 +55,23 @@ export class DashboardListquansComponent implements OnInit {
             }
         })
     }
+    timkiem="";
+    search() {
+        console.log(this.timkiem);
+        
+        this.dashboardService.searchListQuans(this.timkiem).subscribe(data=>{
+            if (data.status) {
+                this.quans = data.quans;
+                for (let i = 0; i < this.quans.length; i++) {
+                    this.mangreview[i] = this.taomotmangreview(Math.round(this.quans[i].review))
+                }
+                this.checkquans = true;
+                this.taoquansnew(this.page);
+                this.changeDetectorRef.detectChanges();
+            }
+        })   
+        this.timkiem="";
+    }
 
     taomotmangreview(review: number){
         switch (review) {
