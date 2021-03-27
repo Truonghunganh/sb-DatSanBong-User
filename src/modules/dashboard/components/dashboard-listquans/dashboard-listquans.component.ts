@@ -22,7 +22,7 @@ export class DashboardListquansComponent implements OnInit {
     url = environment.url;
     urlCLU= environment.urlCLU;
     ngOnInit() {
-        this.checktoken();
+        this.getListquans();
     }
 
     checktoken(){
@@ -52,14 +52,20 @@ export class DashboardListquansComponent implements OnInit {
                 this.checkquans=true;
                 this.taoquansnew(this.page);
                 this.changeDetectorRef.detectChanges();
+            }else{
+                this.router.navigate(['/auth/login']);
             }
         })
     }
+    hienthivitricuaminh=true;
     timkiem="";
     search() {
-        console.log(this.timkiem);
-        
+        this.hienthivitricuaminh=false;
+        this.checkquans =false;
+        this.page=1;
         this.dashboardService.searchListQuans(this.timkiem).subscribe(data=>{
+            console.log(data);
+            
             if (data.status) {
                 this.quans = data.quans;
                 for (let i = 0; i < this.quans.length; i++) {

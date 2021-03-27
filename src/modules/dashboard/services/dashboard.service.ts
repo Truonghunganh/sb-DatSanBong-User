@@ -88,8 +88,6 @@ export class DashboardService {
         );
     }
     addComment(idquan: number,binhluan:string): Observable<any> {
-        console.log(idquan,binhluan);
-        
         return this.http.post<any>(environment.url + "/api/v1/comments",{"idquan":idquan, "binhluan":binhluan}, this.appCommonService.httpOptions).pipe(
             tap(data => of(data)), catchError(this.appCommonService.errorHandler)
         );
@@ -99,6 +97,12 @@ export class DashboardService {
             tap(data => of(data)), catchError(this.appCommonService.errorHandler)
         );
     }
+    xoaComment(id: number): Observable<any> {
+        return this.http.delete<any>(environment.url + "/api/v1/comments/" + id, this.appCommonService.httpOptions).pipe(
+            tap(data => of(data)), catchError(this.appCommonService.errorHandler)
+        );
+    }
+
     searchListQuans( search: string): Observable<any> {
         return this.http.get<any>(environment.url + "/api/v1/searchListQuans?search="+ search, this.appCommonService.httpOptions).pipe(
             tap(data => of(data)), catchError(this.appCommonService.errorHandler)

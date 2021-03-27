@@ -15,12 +15,12 @@ export const sideNavSections: SideNavSection[] = [
 export const sideNavItems: SideNavItems = {
     ListQuan: {
         icon: 'arrows-alt',
-        text: 'Danh sách các quán đặt sân',
+        text: 'Danh sách các quán',
         link: '/dashboard/quans',
     },
     Customers: {
         icon: 'user',
-        text: 'Thông tin người đặt sân',
+        text: 'Thông tin cá nhân',
         link: '/dashboard/user',
     },
 

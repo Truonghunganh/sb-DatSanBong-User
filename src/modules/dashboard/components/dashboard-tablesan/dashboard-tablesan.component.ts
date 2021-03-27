@@ -33,7 +33,10 @@ export class DashboardTablesanComponent implements OnInit {
     today = new Date().toISOString().slice(0, 10);
     ngayvagio:string="";
     ngOnInit() {
-        this.checktoken();
+        this.idquan = Number(this.activatedRoute.snapshot.paramMap.get('idquan'));
+        this.ngayvagio = new Date().toISOString().slice(0, 10);
+        this.getDatSansvaSansByUserAndIdquanAndNgay(this.idquan, this.ngayvagio);
+        //this.checktoken();
     }
     checktoken() {
         this.authService.checkTokenUser().subscribe(data => {
@@ -107,30 +110,42 @@ export class DashboardTablesanComponent implements OnInit {
                 }
                 this.checkdatsans= true;
                 this.changeDetectorRef.detectChanges();
+            }else{
+
             }
         })
     }
 
     updatereview(){
-        this.dashboardService.reviewByUser(this.idquan,this.reviewuser).subscribe(data =>{
-            if (data.status) {
-                Swal.fire({
-                    icon: 'success',
-                    title: data.message,
-                    showConfirmButton: false,
-                    timer: 1500
-                });
+        this.nutReview=!this.nutReview;
+        if (this.nutReview) {
+            this.strNutReview = "OK";
 
-            }else{
-                Swal.fire({
-                    icon: 'error',
-                    text: data.message,
-                })
-            }
-
-        })
+        } else {
+            this.strNutReview = "review";
+            this.dashboardService.reviewByUser(this.idquan, this.reviewuser).subscribe(data => {
+                if (data.status) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: data.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        text: data.message,
+                    })
+                }
+            });
+        }
+        
     }
+    nutReview=false;
+    strNutReview="review";
     chonreview(review: number){
+        console.log(review);
+        
         this.mangreviewuser=this.taomotmangreview(review);
         this.reviewuser= review;
     }
@@ -303,13 +318,45 @@ export class DashboardTablesanComponent implements OnInit {
                 })
             }
             this.binhluan="";
-        })
-        
+        });
+        this.binhluan = "";
     }
+    values = ['AM', 'PM'];
+    defaultValue = this.values[1];
+
+    // select(){
+    //     select.options[0].selected = true;
+    // }
     mangreview = new Array();
     xoabinhluan(id:number){
-        console.log(id);
-        
+        Swal.fire({
+            title: 'ban có chắc muốn xóa bình luận này không ?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'xóa'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.dashboardService.xoaComment(id).subscribe(data=>{
+                    if (data.status) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'đã xóa bình luận thành công',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        this.comments = data.comments;
+                        this.checkcomments = true;
+                        this.changeDetectorRef.detectChanges();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: data.message,
+                        })
+                    }
+                })
+                
+            }
+        })
     }
     
     chinhsuaBL(vitri: number,id: number, binhluan: string){
@@ -318,9 +365,6 @@ export class DashboardTablesanComponent implements OnInit {
         this.dashboardService.updateComment(id, binhluan).subscribe(data=>{
             if (data.status) {
                 this.comments = data.comments;
-                console.log(this.comments);
-                console.log(this.mangBL);
-                
                 this.checkcomments = true;
                 this.changeDetectorRef.detectChanges();
             } else {
@@ -341,3 +385,8 @@ export class DashboardTablesanComponent implements OnInit {
     }
     mangBL= new Array();
 }
+// Swal.fire({
+//     html: '<img *ngIf="' + this.mangreviewuser[0] + '" (click)="' + this.chonreview(1) + '" src="../../../assets/img/reviews/Star_full.svg" style="width: 3rem;height: 3rem"><img * ngIf="!' + this.mangreviewuser[0] + '" (click)="' + this.chonreview(1) + '" src = "../../../assets/img/reviews/0-star.svg" style="width: 3rem;height: 3rem" ><img * ngIf="' + this.mangreviewuser[1] + '" (click)="' + this.chonreview(2) + '" src = "../../../assets/img/reviews/Star_full.svg" style="width: 3rem;height: 3rem" ><img * ngIf="!' + this.mangreviewuser[1] + '" (click)="' + this.chonreview(2) + '" src = "../../../assets/img/reviews/0-star.svg" style="width: 3rem;height: 3rem" ><img * ngIf="' + this.mangreviewuser[2] + '" (click)="' + this.chonreview(3) + '" src = "../../../assets/img/reviews/Star_full.svg" style="width: 3rem;height: 3rem"><img * ngIf="!' + this.mangreviewuser[2] + '" (click)="' + this.chonreview(3) + '" src = "../../../assets/img/reviews/0-star.svg" style="width: 3rem;height: 3rem" ><img * ngIf="' + this.mangreviewuser[3] + '" (click)="' + this.chonreview(4) + '" src = "../../../assets/img/reviews/Star_full.svg" style="width: 3rem;height: 3rem"><img * ngIf="!' + this.mangreviewuser[3] + '" (click)="' + this.chonreview(4) + '" src = "../../../assets/img/reviews/0-star.svg" style="width: 3rem;height: 3rem"><img * ngIf="' + this.mangreviewuser[4] + '" (click)="' + this.chonreview(5) + '" src = "../../../assets/img/reviews/Star_full.svg" style="width: 3rem;height: 3rem"><img * ngIf="!' + this.mangreviewuser[4] + '" (click)="' + this.chonreview(5) + '" src = "../../../assets/img/reviews/0-star.svg" style="width: 3rem;height: 3rem">',
+//     showCancelButton: true,
+//     confirmButtonText: `thanh toán`,
+// });

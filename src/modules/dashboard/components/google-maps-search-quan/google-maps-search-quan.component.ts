@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Input, Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 import { DashboardService } from "../../services/dashboard.service";
 import { environment } from './../../../../environments/environment';
 import { Router } from '@angular/router';
@@ -13,43 +13,22 @@ declare const L: any;
 })
 export class GoogleMapsSearchQuanComponent implements OnInit {
     constructor(
-        private dashboardService: DashboardService,
-        private authService: AuthService,
-        private router: Router,
         private changeDetectorRef: ChangeDetectorRef
 
         ) {}
     ngOnInit() {
-        this.checktoken()
+        console.log(this.listquans);
+        this.hienVitricacquan(this.listquans);
+        this.changeDetectorRef.detectChanges();
+        
+       // this.getListquans();
+        //this.checktoken()
         
     }
     url= environment.url+"/api/v1/";
-    listquans: any;
-    checktoken() {
-        this.authService.checkTokenUser().subscribe(data => {
-            console.log(data);
-
-            if (!data.status) {
-                this.router.navigate(['/auth/login']);
-            } else {
-                this.getListquans();
-
-            }
-        })
-    }
-    getListquans() {
-        this.dashboardService.getAllQuanDangHoatdongByUser().subscribe(data => {
-            console.log(data);
-
-            if (data.status) {
-                this.listquans = data.quans;
-                this.hienVitricacquan(this.listquans);
-                this.changeDetectorRef.detectChanges();
-            }
-        })
-    }
-
-
+    @Input() listquans: any;
+    @Input() hienthivitricuaminh: boolean=true;
+    
     hienVitricacquan(quans:any){
         if (!navigator.geolocation) {
             console.log('location is not supported');
@@ -57,13 +36,19 @@ export class GoogleMapsSearchQuanComponent implements OnInit {
         console.log(quans);
         
         navigator.geolocation.getCurrentPosition((position) => {
-            const coords = position.coords;
-            const latLong = [coords.latitude, coords.longitude];
+            const  coords = position.coords;
+            let latLong = [coords.latitude, coords.longitude];
+            if (!this.hienthivitricuaminh&&quans.length>0) {
+                let i = quans.length - 1;
+                latLong = [quans[i].vido, quans[i].kinhdo];
+            }
+            let mymap = L.map('map').setView(latLong, 13);
+            latLong = [coords.latitude, coords.longitude];
             console.log(
                 `lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`
             );
-            let mymap = L.map('map').setView(latLong, 13);
-
+        
+       
             L.tileLayer(
                 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic3VicmF0MDA3IiwiYSI6ImNrYjNyMjJxYjBibnIyem55d2NhcTdzM2IifQ.-NnMzrAAlykYciP4RP9zYQ',
                 {
@@ -77,24 +62,38 @@ export class GoogleMapsSearchQuanComponent implements OnInit {
                 }
             ).addTo(mymap);
 
-            for (let i = 0; i < quans.length; i++) {
-                L.marker([quans[i].vido, quans[i].kinhdo]).addTo(mymap).bindPopup(
-                    '<table class="table"><tbody>'+
-                    '<tr><td> Tên  :</td><td>'+quans[i].name+'</td></tr>'+
-                    '<tr><td> địa chỉ :</td><td>' + quans[i].address + '</td></tr>' +
-                    '<tr><td> số điện thoại :</td><td>' + quans[i].phone + '</td></tr>' +
-                    '</tbody></table>'+ 
-                    '<a href="/dashboard/quans/'+quans[i].id+'">chọn sân này</a>'
-                    ).openPopup();
-            }
             var myIcon = L.icon({
                 iconUrl: '../../../assets/img/vitri.jpg',//'../../../assets/img/vitri.jpg',
                 iconSize: [25, 41],
                 
             });
-            //L.marker(latLong, { color: myIcon }).addTo(mymap).bindPopup('<strong>tôi đang ở đây </strong>').openPopup();
-            L.circleMarker(latLong, { color: '#FF0000' }).addTo(mymap).bindPopup('<strong>tôi đang ở đây </strong>').openPopup();
-
+            if (!this.hienthivitricuaminh) {
+                L.circleMarker(latLong, { color: '#FF0000' }).addTo(mymap).bindPopup('<strong>tôi đang ở đây </strong>');
+                for (let i = 0; i < quans.length; i++) {
+                    L.marker([quans[i].vido, quans[i].kinhdo]).addTo(mymap).bindPopup(
+                        '<table class="table"><tbody>' +
+                        '<tr><td> Tên  :</td><td>' + quans[i].name + '</td></tr>' +
+                        '<tr><td> địa chỉ :</td><td>' + quans[i].address + '</td></tr>' +
+                        '<tr><td> số điện thoại :</td><td>' + quans[i].phone + '</td></tr>' +
+                        '</tbody></table>' +
+                        '<a href="/dashboard/quans/' + quans[i].id + '">chọn sân này</a>'
+                    );
+                }
+  
+            }
+            if (this.hienthivitricuaminh) {
+                for (let i = 0; i < quans.length; i++) {
+                    L.marker([quans[i].vido, quans[i].kinhdo], { center: [quans[i].vido, quans[i].kinhdo] }).addTo(mymap).bindPopup(
+                        '<table class="table"><tbody>' +
+                        '<tr><td> Tên  :</td><td>' + quans[i].name + '</td></tr>' +
+                        '<tr><td> địa chỉ :</td><td>' + quans[i].address + '</td></tr>' +
+                        '<tr><td> số điện thoại :</td><td>' + quans[i].phone + '</td></tr>' +
+                        '</tbody></table>' +
+                        '<a href="/dashboard/quans/' + quans[i].id + '">chọn sân này</a>'
+                    );
+                }
+                L.circleMarker(latLong, { color: '#FF0000', center: [coords.latitude, coords.longitude] }).addTo(mymap).bindPopup('<strong>tôi đang ở đây </strong>');
+            }
 
         });
     }

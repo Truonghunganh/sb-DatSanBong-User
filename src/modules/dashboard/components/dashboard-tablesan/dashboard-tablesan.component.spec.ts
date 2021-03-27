@@ -43,7 +43,6 @@ describe('DashboardTablesanComponent', () => {
 
         fixture.detectChanges();
     });
-
     it('should display the component', () => {
         expect(hostComponentNE.querySelector('sb-dashboard-tablesan')).toEqual(jasmine.anything());
     });

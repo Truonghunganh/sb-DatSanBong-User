@@ -40,6 +40,7 @@ export class UserComponent implements OnInit {
     }
     
     getListDatSanByUserToken() {
+        this.page=1;
         this.checklistdansan = false;
         this.dashboardService.getListDatSanByUserToken().subscribe(result => {
             console.log(result);
@@ -91,6 +92,23 @@ export class UserComponent implements OnInit {
         this.mangtrang = mang;
 
     }
+
+
+    taomangtrangNew(page: number) {
+        var mang: Array<boolean> = [];
+        if(this.tongpage>3){
+            
+        }
+        var mang: Array<boolean> = [];
+        for (let i = 0; i < this.tongpage; i++) {
+            mang.push(false);
+
+        }
+        mang[page - 1] = true;
+        this.mangtrang = mang;
+
+    }
+
     Previous() {
         if (this.page > 1) {
             this.page--;
