@@ -58,35 +58,6 @@ export class DashboardTablesanComponent implements OnInit {
         
     }
 
-   
-    mangdatsancuamotsan(san:any){
-        let array = new Array(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
-        for(let i=0; i<san.length; i++){
-            switch (san[i].start_time.slice(11,13)) {
-                case "05": array[0] = true;break;
-                case "06": array[1] = true; break;
-                case "07": array[2] = true; break;
-                case "08": array[3] = true; break;
-                case "09": array[4] = true; break;
-                case "10": array[5] = true; break;
-                case "11": array[6] = true; break;
-                case "12": array[7] = true; break;
-                case "13": array[8] = true; break;
-                case "14": array[9] = true; break;
-                case "15": array[10] = true; break;
-                case "16": array[11] = true; break;
-                case "17": array[12] = true; break;
-                case "18": array[13] = true; break;
-                case "19": array[14] = true; break;
-                case "20": array[15] = true; break;
-                
-                default:
-                    break;
-            }
-        }
-        return array;
-    }
-
     getDatSansvaSansByUserAndIdquanAndNgay(idquan: number, ngay: any){
         
         this.checkdatsans = false;
@@ -94,15 +65,11 @@ export class DashboardTablesanComponent implements OnInit {
             console.log(data);
             
             if (data.status){
-                const arrMang = new Array();
-                for (let i = 0; i < data.datsans.length; i++) {
-                    arrMang[i] = this.mangdatsancuamotsan(data.datsans[i]);
-                }
+                this.mangDatsan=data.datsans;
                 this.reviewuser = Math.round(data.reviewcuauser);
                 this.mangreviewuser = this.taomotmangreview(this.reviewuser);
                 this.reviewquan = Math.round(data.quan.review);
                 this.mangreviewquan = this.taomotmangreview(this.reviewquan);
-                this.mangDatsan = arrMang;
                 if(!this.chekquanvasan){
                     this.quan = data.quan;
                     this.sans = data.sans;
