@@ -94,14 +94,8 @@
                         </td>
                         <td class="td">
                             <div class="custom-control custom-switch">
-                                <div *ngIf="datsan.xacnhan">
-                                    <input type="checkbox" class="custom-control-input" checked>
-                                    <label class="custom-control-label" type='hidden' for="status"></label>
-                                </div>
-                                <div *ngIf="!datsan.xacnhan">
-                                    <input type="checkbox" class="custom-control-input">
-                                    <label class="custom-control-label" type='hidden' for="status"></label>
-                                </div>
+                                <input type="checkbox" class="custom-control-input" [checked]="datsan.xacnhan">
+                                <label class="custom-control-label" type='hidden' for="status"></label>
                             </div>
                     
                         </td>
@@ -125,7 +119,7 @@
             </div>
         </ng-template>
         <nav aria-label="...">
-            <ul class="pagination">
+            <ul class="pagination justify-content-center">
                 <div class="row">
                     <input type="button" class="btn btn-success" (click)="Previous()" value="Previous">
                   

@@ -57,7 +57,7 @@ export class DashboardTablesanComponent implements OnInit {
         this.getDatSansvaSansByUserAndIdquanAndNgay(this.idquan, ngay.target.value);
         
     }
-
+    sansTT: any;
     getDatSansvaSansByUserAndIdquanAndNgay(idquan: number, ngay: any){
         
         this.checkdatsans = false;
@@ -65,6 +65,7 @@ export class DashboardTablesanComponent implements OnInit {
             console.log(data);
             
             if (data.status){
+                this.sansTT= data.sansTT;
                 this.mangDatsan=data.datsans;
                 this.reviewuser = Math.round(data.reviewcuauser);
                 this.mangreviewuser = this.taomotmangreview(this.reviewuser);

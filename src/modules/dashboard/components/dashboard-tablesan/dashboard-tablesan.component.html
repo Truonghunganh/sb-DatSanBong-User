@@ -1,6 +1,6 @@
 <sb-card>
     <div class="card-header">
-        <h1 style="color:chartreuse">1. Thông tin của Quán</h1>
+        <h1 style="color:chartreuse;text-align: center;">1. Thông tin của Quán</h1>
     </div>
     <div class="card-body">
         <div *ngIf="chekquanvasan; then display2; else loading2"></div>
@@ -67,8 +67,8 @@
 </sb-card>
 
 <sb-card>
-    <div class="card-header">
-        <h1 style="color:blue">2. Tình trạng đặt sân</h1>
+    <div class="card-header" style="text-align: center;">
+        <h1 style="color:blue;">2. Tình trạng đặt sân</h1>
         <div class="form-group">
             <div>
                 Hãy chọn ngày đặt sân :
@@ -102,7 +102,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let san of sans ;index as i">
+                    <tr *ngFor="let san of sansTT ;index as i">
                         <td>
                             {{san.name}}
                         </td>
@@ -203,13 +203,13 @@
 
 <sb-card>
     <div class="card-header">
-        <h1 style="color:red">3. Danh sách các sân bóng</h1>
+        <h1 style="color:red; text-align: center;">3. Danh sách các sân bóng</h1>
     </div>
     <div class="card-body">
         <div *ngIf="chekquanvasan; then display1; else loading1"></div>
         <ng-template #display1>
             <div class="row">
-                <div class="col-sm-4" *ngFor="let san of sans ;index as i">
+                <div class="col-sm-4" *ngFor="let san of sansTT ;index as i">
                     <div class="card">
                         <div class="card-header" style="text-align: center;">
                             <h2>{{i+1}}</h2>
@@ -284,31 +284,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <table class="table table-striped " *ngFor="let comment of comments ;index as i">
-                            <tbody>
-                                <tr>
-                                    <h5>
-                                        {{comment.tenUser}} 
-                                        <a class="btn btn-light float-right">Xóa</a>
-                                    </h5>
-                                    {{comment.Create_time}} <br>
-                                    <strong>Bình luận : </strong>
-                                    <div *ngIf="!mangBL[i]">
-                                        {{comment.binhluan}}
-                                        <div *ngIf="comment.quyenUpdate">
-                                            <a class="btn btn-light float-right" (click)="chon(i)">Chỉnh sữa</a>
-                                        </div>
-                                        
-                                    </div>
-                                    <div *ngIf="mangBL[i]">
-                                        <textarea class="form-control" value="{{comment.binhluan}}" #BL aria-label="With textarea"></textarea>
-                                        <span class="btn btn-danger" (click)="chinhsuaBL(i, comment.id,BL.value)">chỉnh sữa</span>
-                                    </div>
-                                    
-                                    
-                                </tr>
-                            </tbody>
-                        </table> -->
                     </div>
                 </div>
             </ng-template>
