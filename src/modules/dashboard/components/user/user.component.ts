@@ -28,9 +28,12 @@ export class UserComponent implements OnInit {
     checkTokenUser(){
         this.checkuser=false;
         this.authService.checkTokenUser().subscribe(result=>{
+            console.log(result);
+            
             if (result.status) {
                 this.user= result.user;
                 this.checkuser=true;
+                this.changeDetectorRef.detectChanges();
                 this.getListDatSanByUserToken();
  
             } else {

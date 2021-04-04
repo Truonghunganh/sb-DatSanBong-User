@@ -71,7 +71,7 @@ export class GoogleMapsSearchQuanComponent implements OnInit {
                 L.circleMarker(latLong, { color: '#FF0000' }).addTo(mymap).bindPopup('<strong>tôi đang ở đây </strong>');
                 for (let i = 0; i < quans.length; i++) {
                     L.marker([quans[i].vido, quans[i].kinhdo]).addTo(mymap).bindPopup(
-                        '<table class="table"><tbody>' +
+                        '<table  class="table"><tbody>' +
                         '<tr><td> Tên  :</td><td>' + quans[i].name + '</td></tr>' +
                         '<tr><td> địa chỉ :</td><td>' + quans[i].address + '</td></tr>' +
                         '<tr><td> số điện thoại :</td><td>' + quans[i].phone + '</td></tr>' +

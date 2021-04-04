@@ -19,6 +19,11 @@ import * as authGuards from './guards';
 
 /* Services */
 import * as authServices from './services';
+import { FullCalendarModule } from '@fullcalendar/angular';
+
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     imports: [
@@ -28,6 +33,12 @@ import * as authServices from './services';
         FormsModule,
         AppCommonModule,
         NavigationModule,
+        FullCalendarModule,
+        CalendarModule.forRoot({
+            provide: DateAdapter,
+            useFactory: adapterFactory,
+        }),
+        HttpClientModule
     ],
     providers: [...authServices.services, ...authGuards.guards],
     declarations: [...authContainers.containers, ...authComponents.components],

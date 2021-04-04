@@ -1,3 +1,4 @@
+import { DashboardComponent } from './containers/dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -6,6 +7,7 @@ import { DashboardModule } from './dashboard.module';
 
 /* Containers */
 import * as dashboardContainers from './containers';
+import * as dashboardComponents from './components';
 
 import { environment } from './../../environments/environment';
 
@@ -43,8 +45,12 @@ export const ROUTES: Routes = [
         canActivate: [],
         component: dashboardContainers.DashboardUserEditComponent,
     },
+    {
+        path: 'home',
+        canActivate: [],
+        component: dashboardComponents.HomeComponent,
+    }
 
-    
 ];
 
 @NgModule({

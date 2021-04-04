@@ -43,6 +43,7 @@ export const ROUTES: Routes = [
             title: 'Pages Forgot Password - SB Admin Angular',
         } as SBRouteData,
     },
+ 
 ];
 
 @NgModule({

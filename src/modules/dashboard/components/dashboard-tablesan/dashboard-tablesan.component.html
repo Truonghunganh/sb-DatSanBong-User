@@ -1,14 +1,14 @@
 <sb-card>
-    <div class="card-header">
-        <h1 style="color:chartreuse;text-align: center;">1. Thông tin của Quán</h1>
+    <div class="card-header border1">
+        <h4 style="text-align: center;"> Thông tin của Quán</h4>
     </div>
-    <div class="card-body">
+    <div class="card-body" style="background-color:#41c04d;color:lightcyan;">
         <div *ngIf="chekquanvasan; then display2; else loading2"></div>
         <ng-template #display2>
             <div class="text-center">
                 <table style="width: 100%;">
                     <tr>
-                        <td class="card-header" style="text-align: center;" rowspan="4">
+                        <td  style="text-align: center;" rowspan="4">
                             <div *ngIf="quan.image">
                                 <img style="width: 150px; " src="{{url+'/'+quan.image}}">
                             </div>
@@ -67,8 +67,8 @@
 </sb-card>
 
 <sb-card>
-    <div class="card-header" style="text-align: center;">
-        <h1 style="color:blue;">2. Tình trạng đặt sân</h1>
+    <div class="card-header border1">
+        <h4 >Tình trạng đặt sân</h4>
         <div class="form-group">
             <div>
                 Hãy chọn ngày đặt sân :
@@ -76,11 +76,11 @@
             </div>
         </div>
     </div>
-    <div class="card-body">
+    <div class="card-body" style="background-color:#41c04d;color:lightcyan;">
         <div *ngIf="checkdatsans then display; else loading"></div>
         <ng-template #display>
             <table class="table-striped table-dark" style="width:100%" border="1">
-                <thead class="thead-dark">
+                <thead class="border1">
                     <tr>
                         <td>tên sân</td>
                         <td>5h</td>
@@ -103,88 +103,88 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let san of sansTT ;index as i">
-                        <td>
+                        <td class="border1">
                             {{san.name}}
                         </td>
                         <td style="background-color: #41c04d;">
                             <button *ngIf="!mangDatsan[i][0]"
                                 (click)="datsan(0,san.id,san.priceperhour,san.name,san.numberpeople)"
-                                class="btn btn-danger">đặt</button>
+                                class="border1">đặt</button>
                         </td>
                         <td style="background-color: #41c04d;">
                             <button *ngIf="!mangDatsan[i][1]"
                                 (click)="datsan(1,san.id,san.priceperhour,san.name,san.numberpeople)"
-                                class="btn btn-danger">đặt</button>
+                                class="border1">đặt</button>
                         </td>
                         <td style="background-color: #41c04d;">
                             <button *ngIf="!mangDatsan[i][2]"
                                 (click)="datsan(2,san.id,san.priceperhour,san.name,san.numberpeople)"
-                                class="btn btn-danger">đặt</button>
+                                class="border1">đặt</button>
                         </td>
                         <td style="background-color: #41c04d;">
                             <button *ngIf="!mangDatsan[i][3]"
                                 (click)="datsan(3,san.id,san.priceperhour,san.name,san.numberpeople)"
-                                class="btn btn-danger">đặt</button>
+                                class="border1">đặt</button>
                         </td>
                         <td style="background-color: #41c04d;">
                             <button *ngIf="!mangDatsan[i][4]"
                                 (click)="datsan(4,san.id,san.priceperhour,san.name,san.numberpeople)"
-                                class="btn btn-danger">đặt</button>
+                                class="border1">đặt</button>
                         </td>
                         <td style="background-color: #41c04d;">
                             <button *ngIf="!mangDatsan[i][5]"
                                 (click)="datsan(5,san.id,san.priceperhour,san.name,san.numberpeople)"
-                                class="btn btn-danger">đặt</button>
+                                class="border1">đặt</button>
                         </td>
                         <td style="background-color: #41c04d;">
                             <button *ngIf="!mangDatsan[i][6]"
                                 (click)="datsan(6,san.id,san.priceperhour,san.name,san.numberpeople)"
-                                class="btn btn-danger">đặt</button>
+                                class="border1">đặt</button>
                         </td>
                         <td style="background-color: #41c04d;">
                             <button *ngIf="!mangDatsan[i][7]"
                                 (click)="datsan(7,san.id,san.priceperhour,san.name,san.numberpeople)"
-                                class="btn btn-danger">đặt</button>
+                                class="border1">đặt</button>
                         </td>
                         <td style="background-color: #41c04d;">
                             <button *ngIf="!mangDatsan[i][8]"
                                 (click)="datsan(8,san.id,san.priceperhour,san.name,san.numberpeople)"
-                                class="btn btn-danger">đặt</button>
+                                class="border1">đặt</button>
                         </td>
                         <td style="background-color: #41c04d;">
                             <button *ngIf="!mangDatsan[i][9]"
                                 (click)="datsan(9,san.id,san.priceperhour,san.name,san.numberpeople)"
-                                class="btn btn-danger">đặt</button>
+                                class="border1">đặt</button>
                         </td>
                         <td style="background-color: #41c04d;">
                             <button *ngIf="!mangDatsan[i][10]"
                                 (click)="datsan(10,san.id,san.priceperhour,san.name,san.numberpeople)"
-                                class="btn btn-danger">đặt</button>
+                                class="border1">đặt</button>
                         </td>
                         <td style="background-color: #41c04d;">
                             <button *ngIf="!mangDatsan[i][11]"
                                 (click)="datsan(11,san.id,san.priceperhour,san.name,san.numberpeople)"
-                                class="btn btn-danger">đặt</button>
+                                class="border1">đặt</button>
                         </td>
                         <td style="background-color: #41c04d;">
                             <button *ngIf="!mangDatsan[i][12]"
                                 (click)="datsan(12,san.id,san.priceperhour,san.name,san.numberpeople)"
-                                class="btn btn-danger">đặt</button>
+                                class="border1">đặt</button>
                         </td>
                         <td style="background-color: #41c04d;">
                             <button *ngIf="!mangDatsan[i][13]"
                                 (click)="datsan(13,san.id,san.priceperhour,san.name,san.numberpeople)"
-                                class="btn btn-danger">đặt</button>
+                                class="border1">đặt</button>
                         </td>
                         <td style="background-color: #41c04d;">
                             <button *ngIf="!mangDatsan[i][14]"
                                 (click)="datsan(14,san.id,san.priceperhour,san.name,san.numberpeople)"
-                                class="btn btn-danger">đặt</button>
+                                class="border1">đặt</button>
                         </td>
                         <td style="background-color: #41c04d;">
                             <button *ngIf="!mangDatsan[i][15]"
                                 (click)="datsan(15,san.id,san.priceperhour,san.name,san.numberpeople)"
-                                class="btn btn-danger">đặt</button>
+                                class="border1">đặt</button>
                         </td>
 
                     </tr>
@@ -202,8 +202,8 @@
 </sb-card>
 
 <sb-card>
-    <div class="card-header">
-        <h1 style="color:red; text-align: center;">3. Danh sách các sân bóng</h1>
+    <div class="card-header border1">
+        <h4 >Danh sách các sân bóng</h4>
     </div>
     <div class="card-body">
         <div *ngIf="chekquanvasan; then display1; else loading1"></div>
@@ -211,12 +211,12 @@
             <div class="row">
                 <div class="col-sm-4" *ngFor="let san of sansTT ;index as i">
                     <div class="card">
-                        <div class="card-header" style="text-align: center;">
+                        <div class="card-header border1">
                             <h2>{{i+1}}</h2>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" style="background-color:#41c04d;color:lightcyan;">
                             <table class="table table-striped ">
-                                <tbody>
+                                <tbody class="border1">
                                     <tr>
                                         <td>tên sân</td>
                                         <td> <strong>{{ san.name }}</strong></td>
@@ -249,31 +249,31 @@
 <input class="form-control btn btn-success" (click)="xembinhluan()" type="button" value="{{hienthibinhluan}}">
 <div *ngIf="checkhienthibinhluan">
     <sb-card>
-        <div class="card-header">
+        <div class="card-header" style="background-color:#41c04d">
             <div class="input-group">
                 <textarea class="form-control"name ="binhluan" [(ngModel)]="binhluan" aria-label="With textarea"></textarea>
-                <span class="btn btn-danger" (click)="binhluancuaban()" >Bình luận</span>
+                <button class="border1" (click)="binhluancuaban()" >Bình luận</button>
             </div>
 
         </div>
-        <div class="card-body">
+        <div class="card-body" style="background-color:#41c04d;color:lightcyan;">
             <div *ngIf="checkcomments; then display3; else loading3"></div>
             <ng-template #display3>
                 <div class="row">
-                    <div class="card-body">
+                    <div class="card-body" >
                         <div class="form-group row" *ngFor="let comment of comments ;index as i">
                             <label class="col-lg-1 col-form-label form-control-label">
                                 <img class="card-img-top" style="display: block;" src="../../../assets/img/avatar.jpg" alt="Card image cap">
                             </label>
-                            <div class="col-lg-11">
-                                <h5>
+                            <div class="col-lg-11" >
+                                <h6>
                                     <strong>{{comment.tenUser}}</strong>
                                     {{comment.Create_time}}
                                     <strong *ngIf="comment.quyenUpdate">
-                                        <a class="btn btn-info float-right" (click)="xoabinhluan(comment.id)">Xóa</a>
-                                        <a class="btn btn-warning float-right" (click)="chon(i)">Chỉnh sữa</a>
+                                        <button class="border1 float-right" (click)="xoabinhluan(comment.id)">Xóa</button>
+                                        <button class="border1 float-right" (click)="chon(i)">Chỉnh sữa</button>
                                     </strong>
-                                </h5>
+                                </h6>
                                 <div class="input-group" *ngIf="!mangBL[i]">
                                     {{comment.binhluan}}
                                     
